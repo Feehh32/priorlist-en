@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "id": "e194",
+      "name": "Fernando Pereira Joazeiro",
+      "email": "fernando.mkv@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "47b1",
+      "name": "Soraya Alves",
+      "email": "soraya@email.com",
+      "password": "qwerty123"
+    },
+    {
+      "name": "John Doe",
+      "email": "johndoe@email.com",
+      "password": "qwerty123",
+      "id": "a0KbqBr"
+    },
+    {
+      "name": "Rayssa",
+      "email": "rayssa@email.com",
+      "password": "123123",
+      "id": "xwhqNAN"
+    }
+  ],
+  "tasks": [
+    {
+      "userId": "e194",
+      "title": "Começando o backend",
+      "description": "trabalhar agora no supabase",
+      "deadline": "2025-10-17",
+      "priority": "high",
+      "completed": false,
+      "archived": false,
+      "createdAt": "2025-10-15T18:00:39.890Z",
+      "updatedAt": "2025-10-15T18:07:16.540Z",
+      "id": 3
+    }
+  ]
+}
