@@ -18,37 +18,32 @@ const Register = () => {
   const navigate = useNavigate();
   const { register, error, loading } = useContext(AuthContext);
 
-  // dinamic title
+  // dynamic title
   useEffect(() => {
-    document.title = "PriorList | Registre-se";
+    document.title = "PriorList | Sign Up";
   }, []);
 
-  // Function to control the inputs
+  // handle input changes
   const handleChange = (e) => {
-    setBodyData((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    setBodyData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setFormErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
 
-  // Handler for form submission
+  // handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errors = registerValidator(bodyData);
     setFormErrors(errors);
 
-    // if errors object is not empty, return e stop the function
     if (Object.keys(errors).length > 0) return;
 
-    // take off the confirm password
-    // eslint-disable-next-line no-unused-vars
+    // remove confirmPassword before sending data
     const { confirmPassword, ...userData } = bodyData;
 
-    //register the user
     const result = await register(userData);
     if (result) {
-      setSuccess("Conta criada com sucesso!");
+      setSuccess("Account created successfully!");
       setTimeout(() => {
         navigate("/login");
       }, 2000);
@@ -66,26 +61,25 @@ const Register = () => {
             {success}
           </p>
         )}
-        <div className=" bg-white max-w-2xl w-full shadow-md rounded-2xl">
+        <div className="bg-white max-w-2xl w-full shadow-md rounded-2xl">
           <Link
             to="/"
             className="text-lg text-primary font-semibold text-center pt-4 pb-2 font-logo block"
-            aria-label="Priolist - Página inicial"
+            aria-label="PriorList - Homepage"
           >
-            Priorlist
+            PriorList
           </Link>
-          <h1 className=" text-2xl md:text-3xl font-medium text-center text-secondary mb-8">
-            Crie aqui sua conta gratuitamente
+          <h1 className="text-2xl md:text-3xl font-medium text-center text-secondary mb-8">
+            Create your free account
           </h1>
           <form
             onSubmit={handleSubmit}
             className="px-8 pb-8 grid gap-4"
             noValidate
           >
-            {/* Every FormInput will be controlled by data object */}
             <FormInput
-              label="Nome"
-              placeholder="Seu nome"
+              label="Name"
+              placeholder="Your name"
               id="name"
               value={bodyData.name}
               onChange={handleChange}
@@ -93,7 +87,7 @@ const Register = () => {
             />
             <FormInput
               label="Email"
-              placeholder="Seu email"
+              placeholder="Your email"
               id="email"
               value={bodyData.email}
               onChange={handleChange}
@@ -101,8 +95,8 @@ const Register = () => {
               error={formErrors["email"]}
             />
             <FormInput
-              label="Senha"
-              placeholder="Sua senha"
+              label="Password"
+              placeholder="Your password"
               id="password"
               value={bodyData.password}
               onChange={handleChange}
@@ -110,8 +104,8 @@ const Register = () => {
               error={formErrors["password"]}
             />
             <FormInput
-              label="Confirme sua senha"
-              placeholder="Confirme sua senha"
+              label="Confirm password"
+              placeholder="Confirm your password"
               id="confirmPassword"
               value={bodyData.confirmPassword}
               onChange={handleChange}
@@ -123,20 +117,20 @@ const Register = () => {
               className="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors mt-2 cursor-pointer font-secondary shadow-md flex justify-center items-center"
               disabled={loading}
             >
-              {loading ? <Spinner color="border-gray-200" /> : "Registrar"}
+              {loading ? <Spinner color="border-gray-200" /> : "Sign up"}
             </button>
             {error && (
-              <p className="text-red-500 text-sm text-center " role="alert">
-                Usuário já cadastrado
+              <p className="text-red-500 text-sm text-center" role="alert">
+                User already registered
               </p>
             )}
             <p className="text-sm text-center text-gray-600">
-              Já tem conta?{" "}
+              Already have an account?{" "}
               <Link
                 to="/login"
                 className="text-primary font-medium hover:underline"
               >
-                Entre aqui
+                Log in here
               </Link>
             </p>
           </form>

@@ -1,9 +1,10 @@
 const taskFormValidator = (data) => {
   const errors = {};
+
   if (!data.title || !data.title.trim()) {
-    errors.title = "O titulo é obrigatorio";
+    errors.title = "Title is required";
   } else if (data.title.length > 150) {
-    errors.title = "O título não pode ter mais de 150 caracteres";
+    errors.title = "Title cannot exceed 150 characters";
   }
 
   return errors;

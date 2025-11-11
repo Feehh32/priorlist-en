@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // Function to "cleaning" the user data
+  // Function to clean user data
   const cleanUserData = (user) => {
     if (!user) return null;
     return {
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     };
   };
 
-  // The useEffect hook is used to restore the user data when the component mounts
+  // Restore user session when the component mounts
   useEffect(() => {
     const getSession = async () => {
       setLoading(true);
@@ -37,12 +37,13 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setError(null);
       }
+
       setLoading(false);
     };
 
     getSession();
 
-    // Listen authentication changes (login/logout)
+    // Listen for authentication changes (login/logout)
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(cleanUserData(session?.user || null));
@@ -50,17 +51,18 @@ export const AuthProvider = ({ children }) => {
       }
     );
 
-    // Unsubscribe from the listener on unmount
+    // Unsubscribe from listener on unmount
     return () => {
       listener?.subscription.unsubscribe();
     };
   }, []);
 
+  // Clear any existing error when navigating to a new route
   useEffect(() => {
     if (error) setError(null);
   }, [location.pathname]);
 
-  // Function to handle user registration
+  // Register a new user
   const register = async ({ name, email, password }) => {
     setError(null);
     setLoading(true);
@@ -69,9 +71,7 @@ export const AuthProvider = ({ children }) => {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          data: { name },
-        },
+        options: { data: { name } },
       });
 
       if (error) throw error;
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // function to handle login with email and password
+  // Log in with email and password
   const login = async ({ email, password }) => {
     setError(null);
     setLoading(true);
@@ -108,6 +108,7 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error;
 
       const authenticatedUser = data.user;
+
       const { data: userRecord, error: fetchError } = await supabase
         .from("profiles")
         .select("id, active, name")
@@ -119,7 +120,7 @@ export const AuthProvider = ({ children }) => {
       if (!userRecord.active) {
         await supabase.auth.signOut();
         throw new Error(
-          "Sua conta foi desativada. Entre em contato ou crie uma nova conta."
+          "Your account has been deactivated. Please contact support or create a new account."
         );
       }
 
@@ -133,8 +134,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Function to handle user logout
-
+  // Log out the current user
   const logout = async () => {
     setError(null);
     setLoading(true);
@@ -149,7 +149,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Function to handle reset password
+  // Send password reset email
   const resetPassword = async (email) => {
     setError(null);
     setLoading(true);
@@ -160,24 +160,25 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (error) throw error;
+
       return {
         success: true,
         message:
-          "Se o email estiver correto, você receberá um link para redefinir sua senha.",
+          "If the email address is correct, you'll receive a link to reset your password.",
       };
     } catch (err) {
       console.error(err.message);
-      setError("Ocorreu um erro ao tentar recuperar sua senha.");
+      setError("An error occurred while trying to reset your password.");
       return {
         success: false,
-        message: "Ocorreu um erro ao tentar recuperar sua senha.",
+        message: "An error occurred while trying to reset your password.",
       };
     } finally {
       setLoading(false);
     }
   };
 
-  // Function to update password
+  // Update user password
   const updatePassword = async (newPassword) => {
     setError(null);
     setLoading(true);
@@ -192,22 +193,19 @@ export const AuthProvider = ({ children }) => {
       return { success: true, data };
     } catch (err) {
       setError(err.message);
-      return {
-        success: false,
-        message: err.message,
-      };
+      return { success: false, message: err.message };
     } finally {
       setLoading(false);
     }
   };
 
-  // Deactivate user account
+  // Deactivate user account and delete related data
   const deactivateAccount = async () => {
     setError(null);
     setLoading(true);
 
     try {
-      if (!user) throw new Error("Usuário não encontrado.");
+      if (!user) throw new Error("User not found.");
 
       const { error } = await supabase
         .from("profiles")
@@ -220,10 +218,13 @@ export const AuthProvider = ({ children }) => {
 
       setUser(null);
 
-      return { success: true, message: "Conta desativada com sucesso." };
+      return { success: true, message: "Account successfully deactivated." };
     } catch (err) {
       setError(err.message);
-      return { success: false, message: "Erro ao desativar a conta." };
+      return {
+        success: false,
+        message: "Error while deactivating the account.",
+      };
     } finally {
       setLoading(false);
     }

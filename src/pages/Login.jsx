@@ -40,9 +40,9 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/tasks";
 
-  // dinamic title
+  // dynamic title
   useEffect(() => {
-    document.title = "PriorList | Entrar com email e senha";
+    document.title = "PriorList | Sign in with your email";
   }, []);
 
   // Function to control the inputs
@@ -59,7 +59,7 @@ const Login = () => {
     const errors = loginValidator(loginData);
     setFormErrors(errors);
 
-    // if errors object is not empty, return e stop the function
+    // if errors object is not empty, return and stop the function
     if (Object.keys(errors).length > 0) {
       return;
     }
@@ -97,7 +97,7 @@ const Login = () => {
             />
           </svg>
           <h2 className="text-white text-4xl font-secondary font-semibold max-w-md text-center relative z-10">
-            Organize suas tarefas de forma simples
+            Organize your tasks easily
           </h2>
         </motion.section>
         <motion.section
@@ -110,12 +110,12 @@ const Login = () => {
             <Link
               to="/"
               className="text-lg text-primary font-semibold text-center pt-4 pb-2 font-logo block"
-              aria-label="Priolist - Página inicial"
+              aria-label="PriorList - Home page"
             >
-              Priorlist
+              PriorList
             </Link>
             <h1 className=" text-2xl md:text-3xl font-medium text-center text-secondary mb-8">
-              Faça login na sua conta
+              Sign in to your account
             </h1>
             <form
               onSubmit={handleSubmit}
@@ -124,7 +124,7 @@ const Login = () => {
             >
               <FormInput
                 label="Email"
-                placeholder="Seu email"
+                placeholder="Your email"
                 id="email"
                 type="email"
                 onChange={handleChange}
@@ -132,8 +132,8 @@ const Login = () => {
                 error={formErrors.email}
               />
               <FormInput
-                label="Senha"
-                placeholder="Sua senha"
+                label="Password"
+                placeholder="Your password"
                 id="password"
                 type="password"
                 autoComplete="on"
@@ -146,20 +146,20 @@ const Login = () => {
                 className="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors mt-2 cursor-pointer font-secondary shadow-md flex items-center justify-center"
                 disabled={loading}
               >
-                {loading ? <Spinner color="border-gray-200" /> : "Entrar"}
+                {loading ? <Spinner color="border-gray-200" /> : "Sign In"}
               </button>
               {error && (
                 <p className="text-red-500 text-sm text-center" role="alert">
-                  Email ou senha incorretos
+                  Incorrect email or password
                 </p>
               )}
               <p className="text-sm text-center text-gray-600">
-                Ainda nao tem conta?{" "}
+                Don’t have an account yet?{" "}
                 <Link
                   to="/register"
                   className="text-primary font-medium hover:underline"
                 >
-                  Registre-se aqui
+                  Register here
                 </Link>
               </p>
 
@@ -167,7 +167,7 @@ const Login = () => {
                 to="/forgot-password"
                 className="text-primary font-medium text-sm hover:underline text-center block"
               >
-                Esqueceu sua senha?
+                Forgot your password?
               </Link>
             </form>
           </div>

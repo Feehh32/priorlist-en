@@ -2,27 +2,27 @@ const registerValidator = (data) => {
   const errors = {};
 
   if (!data.name) {
-    errors.name = "O nome é obrigatório";
+    errors.name = "Name is required";
   }
 
   if (!data.email) {
-    errors.email = "O email é obrigatório";
+    errors.email = "Email is required";
   } else if (
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data.email)
   ) {
-    errors.email = "Insira um email válido";
+    errors.email = "Please enter a valid email address";
   }
 
   if (!data.password) {
-    errors.password = "A senha é obrigatório";
+    errors.password = "Password is required";
   } else if (data.password.length < 6) {
-    errors.password = "A senha deve ter pelo menos 6 caracteres";
+    errors.password = "Password must be at least 6 characters long";
   }
 
   if (!data.confirmPassword) {
-    errors.confirmPassword = "A confirmação de senha é obrigatória";
+    errors.confirmPassword = "Password confirmation is required";
   } else if (data.password !== data.confirmPassword) {
-    errors.confirmPassword = "As senhas devem ser iguais";
+    errors.confirmPassword = "Passwords must match";
   }
 
   return errors;

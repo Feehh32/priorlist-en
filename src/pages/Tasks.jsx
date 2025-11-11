@@ -34,9 +34,9 @@ const Tasks = () => {
 
   const modalTitleId = "task-modal-title";
 
-  // dinamic title
+  // dynamic title
   useEffect(() => {
-    document.title = "PriorList | Suas tarefas";
+    document.title = "PriorList | Your Tasks";
   }, []);
 
   // Fetch tasks
@@ -49,13 +49,13 @@ const Tasks = () => {
     handleFetchTasks();
   }, []);
 
-  // Function to add a new toast message
+  // Add new toast notification
   const addToast = (message, type = "success") => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
   };
 
-  // Function to add a new task
+  // Create new task
   const addTask = async (newTask) => {
     try {
       const response = await createTask(
@@ -64,19 +64,19 @@ const Tasks = () => {
       );
 
       if (!response) {
-        addToast("Erro ao criar tarefa.", "error");
+        addToast("Error creating task.", "error");
         return;
       }
 
-      addToast("Tarefa criada com sucesso!", "success");
+      addToast("Task created successfully!", "success");
     } catch {
-      addToast("Erro inesperado ao criar tarefa.", "error");
+      addToast("Unexpected error while creating the task.", "error");
     } finally {
       setShowModal(false);
     }
   };
 
-  // Function to update a task and update the list
+  // Update existing task
   const handleUpdateTask = async (taskToUpdate) => {
     try {
       const response = await updateTask(
@@ -85,59 +85,61 @@ const Tasks = () => {
       );
 
       if (!response) {
-        addToast("Erro ao atualizar tarefa.", "error");
+        addToast("Error updating task.", "error");
         return;
       }
 
-      addToast("Tarefa atualizada com sucesso!", "success");
+      addToast("Task updated successfully!", "success");
     } catch {
-      addToast("Erro inesperado ao atualizar tarefa.", "error");
+      addToast("Unexpected error while updating the task.", "error");
     } finally {
       setShowModal(false);
     }
   };
 
-  // Function to handle the status update (completed/archived) of Tasklist
+  // Update task status (completed/archived)
   const handleStatusUpdate = async (taskToUpdate) => {
     try {
       await updateTask(taskToUpdate);
     } catch {
       if (Object.keys(taskToUpdate).includes("completed")) {
         addToast(
-          "Erro inesperado ao tentar marcar a tarefa como completa.",
+          "Unexpected error while marking the task as complete.",
           "error"
         );
       } else {
-        addToast("Erro inesperado ao arquivar a tarefa.", "error");
+        addToast("Unexpected error while archiving the task.", "error");
       }
     }
   };
 
-  // All 3 functions below are used to delete a task and update the list
+  // Request delete confirmation
   const handleDeleteRequest = useCallback((taskId) => {
     setTaskToDelete(taskId);
     setShowDeleteModal(true);
   }, []);
 
+  // Delete task
   const handleDeleteTask = useCallback(
     async (task, showToast = true) => {
       try {
         const response = await deleteTask(task.id);
         if (!response) {
-          if (showToast) addToast("Error ao deletar a tarefa", "error");
+          if (showToast) addToast("Error deleting the task.", "error");
           return;
         }
 
-        if (showToast) addToast("Tarefa deletada com sucesso!", "success");
+        if (showToast) addToast("Task deleted successfully!", "success");
       } catch {
         if (showToast) {
-          addToast("Erro inesperado ao deletar a tarefa.", "error");
+          addToast("Unexpected error while deleting the task.", "error");
         }
       }
     },
     [deleteTask]
   );
 
+  // Confirm delete action
   const handleDeleteConfirm = useCallback(
     async (confirmed) => {
       if (confirmed && taskToDelete) {
@@ -149,31 +151,31 @@ const Tasks = () => {
     [handleDeleteTask, taskToDelete]
   );
 
-  // Function to delete all tasks marked as completed
+  // Clear all completed tasks
   const handleClearArchivedTasks = async (completedTasks) => {
     try {
       const response = await clearArchivedTasks(completedTasks);
       if (!response) {
-        addToast("Erro ao deletar tarefas concluídas.", "error");
+        addToast("Error deleting completed tasks.", "error");
         return;
       }
-      addToast("Todas as tarefas concluídas foram deletadas!", "success");
+      addToast("All completed tasks have been deleted!", "success");
     } catch {
-      addToast("Erro inesperado ao deletar tarefas concluídas.", "error");
+      addToast("Unexpected error while deleting completed tasks.", "error");
     }
   };
 
-  // Function to remove the toast message
+  // Remove toast notification
   const handleToastClose = useCallback((id) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
 
-  // Function to handle the value of search input
+  // Handle search input
   const handleChangeSearch = useCallback((e) => {
     setSearchTerm(e.target.value);
   }, []);
 
-  // Function to normalize strings and make the search insensitive
+  // Normalize strings (case and accent insensitive)
   const normalizeString = (str) =>
     str
       .toLowerCase()
@@ -181,7 +183,7 @@ const Tasks = () => {
       .replace(/[\u0300-\u036f]/g, "")
       .trim();
 
-  // Filter tasks by title when user search something
+  // Filter tasks based on search input
   const filteredTasks = useMemo(
     () =>
       tasks.filter(
@@ -192,7 +194,7 @@ const Tasks = () => {
     [tasks, searchTerm]
   );
 
-  // Function to handle task sorting options
+  // Handle task sorting option
   const handleSortChange = useCallback(
     async (option) => {
       await fetchTasks(option);
@@ -204,7 +206,7 @@ const Tasks = () => {
     <PageTransition>
       <section className="relative min-h-screen px-4 md:px-16 py-8 md:py-16">
         <h1 className="text-2xl md:text-6xl text-primary font-secondary font-semibold text-center">
-          Suas Tarefas
+          Your Tasks
         </h1>
         <section className="flex flex-col items-center mt-8 md:mt-16 gap-4 w-full">
           <div className="w-full max-w-4xl flex justify-between flex-col md:flex-row">
@@ -216,8 +218,8 @@ const Tasks = () => {
               <input
                 onChange={handleChangeSearch}
                 type="search"
-                aria-label="Buscar tarefas"
-                placeholder="Digite para pesquisar..."
+                aria-label="Search tasks"
+                placeholder="Type to search..."
                 className="search-input w-full md:min-w-md border border-input-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40"
               />
             </div>
@@ -231,7 +233,7 @@ const Tasks = () => {
                 setTaskToEdit(null);
               }}
             >
-              + Nova Tarefa
+              + New Task
             </button>
           </div>
           <div
@@ -240,7 +242,7 @@ const Tasks = () => {
           >
             {filteredTasks?.length === 0 && searchTerm ? (
               <p className="flex items-center justify-center text-secondary font-semibold md:text-lg font-secondary text-center">
-                Nenhuma tarefa encontrada com o termo "{searchTerm}"
+                No tasks found matching "{searchTerm}"
               </p>
             ) : (
               <TaskList
@@ -283,7 +285,7 @@ const Tasks = () => {
             className="text-xl font-semibold mb-4 text-primary"
             id={modalTitleId}
           >
-            {modalMode === "create" ? "Criar Nova Tarefa" : "Editar Tarefa"}
+            {modalMode === "create" ? "Create New Task" : "Edit Task"}
           </h2>
           <TaskForm
             onSubmit={modalMode === "create" ? addTask : handleUpdateTask}
@@ -295,8 +297,8 @@ const Tasks = () => {
         <ConfirmModal
           isOpen={showDeleteModal}
           onConfirm={handleDeleteConfirm}
-          title="Tem certeza que deseja excluir essa tarefa?"
-          message="Esta ação não poderá ser desfeita."
+          title="Are you sure you want to delete this task?"
+          message="This action cannot be undone."
         />
         <div className="fixed top-0 left-0 right-0 z-50">
           <AnimatePresence>

@@ -1,6 +1,5 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import forgotPasswordValidator from "../utils/forgotPasswordValidator";
 import FormInput from "../components/input/FormInput";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -17,14 +16,12 @@ const ForgotPassword = () => {
   const { resetPassword, error, loading } = useContext(AuthContext);
 
   useEffect(() => {
-    document.title = "Recuperar senha | PriorList";
+    document.title = "Forgot Password | PriorList";
   }, []);
 
-  // Function to control the inputs
+  // Handle input changes
   const handleChange = (e) => {
-    setLoginData((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setFormErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
 
@@ -33,16 +30,16 @@ const ForgotPassword = () => {
     const errors = forgotPasswordValidator(loginData);
     setFormErrors(errors);
 
-    // if errors object is not empty, return e stop the function
+    // stop if there are validation errors
     if (Object.keys(errors).length > 0) return;
 
-    // Send the data to reset password
+    // Send reset password request
     const res = await resetPassword(loginData.email);
     if (!res.success) return;
     setSuccess({
       success: true,
       message:
-        "Se o email estiver correto, você receberá um link para redefinir sua senha.",
+        "If the email address is correct, you will receive a link to reset your password.",
     });
     setTimeout(() => {
       setSuccess(null);
@@ -64,11 +61,11 @@ const ForgotPassword = () => {
         )}
         <div className="bg-white max-w-2xl w-full shadow-md rounded-2xl">
           <h1 className="text-2xl md:text-3xl font-medium text-center text-primary my-4 md:my-8">
-            Recuperar sua senha
+            Reset your password
           </h1>
           <p className="text-secondary text-base text-center max-w-md mx-auto mb-4 md:mb-8">
-            Insira seu email no campo abaixo, em seguida lhe enviaremos um link
-            para redefinir sua senha.
+            Enter your email below and we will send you a link to reset your
+            password.
           </p>
           <form
             className="px-8 pb-8 grid gap-4"
@@ -79,7 +76,7 @@ const ForgotPassword = () => {
               label="Email"
               type="email"
               id="email"
-              placeholder="Seu Email"
+              placeholder="Your email"
               onChange={handleChange}
               value={loginData.email}
               error={formErrors.email}
@@ -89,10 +86,10 @@ const ForgotPassword = () => {
               className="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors mt-2 cursor-pointer font-secondary shadow-md flex justify-center items-center"
               disabled={loading}
             >
-              {loading ? <Spinner size="w-6 h-6" color="white" /> : "Enviar"}
+              {loading ? <Spinner size="w-6 h-6" color="white" /> : "Send"}
             </button>
             {error && (
-              <p className="text-red-500 text-sm text-center " role="alert">
+              <p className="text-red-500 text-sm text-center" role="alert">
                 {error}
               </p>
             )}
@@ -103,7 +100,7 @@ const ForgotPassword = () => {
             to={"/login"}
           >
             <FaArrowLeftLong aria-hidden="true" />
-            <span> Voltar ao login</span>
+            <span>Back to login</span>
           </Link>
         </div>
       </section>
