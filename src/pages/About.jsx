@@ -5,7 +5,7 @@ import PageTransition from "../components/pageTransition/PageTransition";
 const About = () => {
   // dinamic title
   useEffect(() => {
-    document.title = "PriorList | Sobre";
+    document.title = "PriorList | About";
   }, []);
 
   return (
@@ -13,7 +13,7 @@ const About = () => {
       <section className="relative min-h-screen md:flex justify-center px-4 md:px-0">
         <div className="w-full h-full ">
           <h1 className="text-3xl md:text-6xl font-secondary text-align-center font-semibold text-primary mb-6 mt-8 text-center ">
-            Sobre o Priorlist
+            About PriorList
           </h1>
           <svg
             className="absolute hidden md:block inset-0 w-full h-full rotate-180"
@@ -36,20 +36,20 @@ const About = () => {
 
         <section className=" max-w-3xl bg-white/80 shadow-md rounded-2xl py-6 px-4 md:p-8 md:absolute md:top-1/4">
           <h2 className="text-2xl md:text-3xl font-medium text-primary mb-6">
-            Produtividade simplificada
+            Productivity made simple
           </h2>
 
           <div className="mb-8 text-secondary">
             <p className="mb-4">
-              O Priolist é uma ferramenta simples e eficiente para gerenciar
-              suas tarefas diárias. Organize suas prioridades, acompanhe seu
-              progresso e mantenha o foco no que realmente importa.
+              PriorList is a simple and efficient tool designed to help you
+              manage your daily tasks. Organize your priorities, track your
+              progress, and stay focused on what truly matters.
             </p>
 
             <p>
-              Nosso objetivo é ajudá-lo a aumentar sua produtividade e reduzir o
-              estresse, proporcionando um ambiente limpo e fácil de usar para
-              que você possa focar no que realmente importa.
+              Our goal is to help you increase productivity and reduce stress by
+              providing a clean, intuitive environment that lets you focus on
+              what really counts.
             </p>
           </div>
           <div className="flex justify-center">
@@ -57,7 +57,7 @@ const About = () => {
               to="/"
               className="inline-block bg-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md"
             >
-              Voltar à Home
+              Back to Home
             </Link>
           </div>
         </section>

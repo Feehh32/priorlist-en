@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -20,27 +19,25 @@ const modal = {
     opacity: 0,
     scale: 0.95,
     y: -20,
-    transition: {
-      duration: 0.2,
-      ease: "easeInOut",
-    },
+    transition: { duration: 0.2, ease: "easeInOut" },
   },
 };
 
 const ConfirmModal = ({
   isOpen,
   onConfirm,
-  title = "Tem certeza?",
-  message = "Esta ação não poderá ser desfeita.",
-  confirmLabel = "Confirmar",
-  cancelLabel = "Cancelar",
+  title = "Are you sure?",
+  message = "This action cannot be undone.",
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
 }) => {
-  const titleId = "delete-modal-title";
+  const titleId = "confirm-modal-title";
   const modalRef = useRef(null);
 
-  // Create a focus trap and handle escape key
+  // Handle escape key and trap focus
   useEffect(() => {
     if (!isOpen) return;
+
     modalRef.current?.focus();
     document.body.style.overflow = "hidden";
 
@@ -69,6 +66,7 @@ const ConfirmModal = ({
           animate="visible"
           exit="exit"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-2 md:px-0"
+          role="presentation"
         >
           <motion.div
             variants={modal}
@@ -77,25 +75,35 @@ const ConfirmModal = ({
             exit="exit"
             role="alertdialog"
             aria-labelledby={titleId}
+            aria-modal="true"
             tabIndex={-1}
             ref={modalRef}
-            className="bg-white max-w-md border-t-16 rounded-lg shadow-lg border-primary p-4"
+            className="bg-white max-w-md border-t-16 rounded-lg shadow-lg border-primary p-5"
           >
-            <h2 className="text-xl text-secondary font-medium" id={titleId}>
+            <h2
+              id={titleId}
+              className="text-xl text-secondary font-medium text-center"
+            >
               {title}
             </h2>
-            {message && <p className="text-gray-600 text-sm mt-2">{message}</p>}
-            <div className="flex justify-center items-center gap-4 mt-4">
+
+            {message && (
+              <p className="text-gray-600 text-sm mt-2 text-center">
+                {message}
+              </p>
+            )}
+
+            <div className="flex justify-center items-center gap-4 mt-5">
               <button
-                className="px-4 py-2 hover:bg-primary hover:text-white cursor-pointer rounded-lg transition-colors duration-300 focus:bg-primary focus:text-white"
-                id="cancel-button"
                 onClick={() => onConfirm(false)}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 {cancelLabel}
               </button>
+
               <button
                 onClick={() => onConfirm(true)}
-                className="px-4 py-2 hover:bg-red-600 hover:text-white cursor-pointer rounded-lg transition-colors duration-300 focus:bg-red-600 focus:text-white"
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
               >
                 {confirmLabel}
               </button>
@@ -106,4 +114,5 @@ const ConfirmModal = ({
     </AnimatePresence>
   );
 };
+
 export default ConfirmModal;

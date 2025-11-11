@@ -1,16 +1,18 @@
 const updatePasswordValidator = (data) => {
   const errors = {};
+
   if (!data.password) {
-    errors.password = "A senha é obrigatória";
+    errors.password = "Password is required";
   } else if (data.password.length < 6) {
-    errors.password = "A senha deve ter pelo menos 6 caracteres";
+    errors.password = "Password must be at least 6 characters long";
   }
 
   if (!data.confirmPassword) {
-    errors.confirmPassword = "A confirmação de senha é obrigatória";
+    errors.confirmPassword = "Password confirmation is required";
   } else if (data.password !== data.confirmPassword) {
-    errors.confirmPassword = "As senhas devem ser iguais";
+    errors.confirmPassword = "Passwords must match";
   }
+
   return errors;
 };
 

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import HeroImage from "../assets/hero-image.webp";
 import { useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import PageTransition from "../components/pageTransition/PageTransition";
 
@@ -22,10 +21,10 @@ const item = {
 };
 
 const Home = () => {
-  // dinamic title
   useEffect(() => {
-    document.title = "PriorList | Lista de tarefas avançadas";
+    document.title = "PriorList | Advanced Task Manager";
   }, []);
+
   return (
     <PageTransition>
       <motion.div
@@ -43,29 +42,30 @@ const Home = () => {
               PriorList
             </h1>
             <p className="text-lg md:text-xl text-gray-600 font-secondary mb-8">
-              Organize suas tarefas de forma rápida, simples e eficiente.
+              Organize your tasks quickly, simply, and efficiently.
             </p>
             <div className="flex flex-col md:flex-row justify-center md:justify-start gap-4">
               <Link
                 to="/register"
                 className="bg-primary text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 font-semibold"
               >
-                Começar Agora
+                Get Started
               </Link>
               <Link
                 to="/login"
                 className="border border-primary text-primary px-8 py-3 rounded-lg shadow-md hover:bg-primary hover:text-white transition-all duration-300 font-semibold"
               >
-                Já tenho conta
+                I already have an account
               </Link>
             </div>
           </div>
+
           <div className="md:flex-1 flex justify-center">
             <picture>
               <source srcSet={HeroImage} type="image/webp" />
               <img
                 src={HeroImage}
-                alt="Pessoa organizando tarefas em uma lista digital"
+                alt="Person organizing tasks in a digital to-do list"
                 width="1472"
                 height="832"
                 loading="eager"
@@ -83,34 +83,34 @@ const Home = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto"
         >
           <div className="p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition">
-            <h2 className="text-xl font-bold text-primary mb-2">✨ Simples</h2>
+            <h2 className="text-xl font-bold text-primary mb-2">✨ Simple</h2>
             <p className="text-gray-600 font-secondary">
-              Interface direta e fácil de usar para organizar suas tarefas.
+              A clean, easy-to-use interface to organize your daily tasks.
             </p>
           </div>
           <div className="p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition">
-            <h3 className="text-xl font-bold text-primary mb-2">⚡ Rápido</h3>
+            <h3 className="text-xl font-bold text-primary mb-2">⚡ Fast</h3>
             <p className="text-gray-600 font-secondary">
-              Crie, edite e acompanhe tudo em poucos cliques.
+              Create, edit, and track everything in just a few clicks.
             </p>
           </div>
           <div className="p-6 rounded-xl shadow-md bg-white hover:shadow-lg transition">
-            <h3 className="text-xl font-bold text-primary mb-2">💡 Gratuito</h3>
+            <h3 className="text-xl font-bold text-primary mb-2">💡 Free</h3>
             <p className="text-gray-600 font-secondary">
-              Utilize sem custos e mantenha suas prioridades sempre à mão.
+              Use it at no cost and keep your priorities always within reach.
             </p>
           </div>
         </motion.section>
 
         <motion.section variants={item} className="mt-20 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-            Pronto para organizar sua vida?
+            Ready to organize your life?
           </h2>
           <Link
             to="/register"
             className="bg-primary text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 font-semibold"
           >
-            Criar Conta Gratuitamente
+            Create a free account
           </Link>
         </motion.section>
       </motion.div>

@@ -5,8 +5,6 @@ import {
   MdOutlineCheck,
 } from "react-icons/md";
 import TaskActions from "./TaskActions";
-
-// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
 
 const priorityGradient = {
@@ -26,14 +24,14 @@ const VisuallyHidden = ({ children }) => (
   <span className="sr-only">{children}</span>
 );
 
-//Animation cards variants
+// Animation variants for cards
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, x: 100, scale: 0.95, transition: { duration: 0.3 } },
 };
 
-// Hover/tap animation from button
+// Hover/tap animation for buttons
 const buttonHoverTap = {
   whileHover: { scale: 1.05 },
   whileTap: { scale: 0.95 },
@@ -47,7 +45,7 @@ const TaskList = ({
   onStatusUpdate,
   loading,
 }) => {
-  // Mark as completed (only style change)
+  // Mark task as completed (visual change only)
   const handleComplete = async (task) => {
     onStatusUpdate({
       id: task.id,
@@ -56,7 +54,7 @@ const TaskList = ({
     });
   };
 
-  // Initiate removal animation
+  // Trigger archive animation
   const handleRemove = async (task) => {
     onStatusUpdate({
       id: task.id,
@@ -65,13 +63,13 @@ const TaskList = ({
     });
   };
 
-  // Delete all tasks in completed tasks
+  // Separate active and archived tasks
   const mainTasks = tasks.filter((task) => !task.archived);
   const completedTasks = tasks.filter((task) => task.archived);
 
   return mainTasks.length === 0 && completedTasks.length === 0 && !loading ? (
     <p className="flex items-center justify-center text-secondary font-semibold md:text-lg font-secondary text-center before:content-[''] before:w-1 before:h-10 before:md:h-6">
-      Você ainda não tem tarefas. Clique em + Nova Tarefa para começar!
+      You don’t have any tasks yet. Click on + New Task to get started!
     </p>
   ) : (
     <ul className="grid md:gap-6 gap-2 max-w-4xl">
@@ -97,15 +95,15 @@ const TaskList = ({
                         ? "line-through text-secondary"
                         : priorityColor[task.priority]
                     }`}
-                    aria-label={`Tarefa: ${task.title} ${
-                      task.completed ? "Concluida" : ""
-                    } - Prioridade ${task.priority}`}
+                    aria-label={`Task: ${task.title} ${
+                      task.completed ? "Completed" : ""
+                    } - Priority ${task.priority}`}
                   >
                     {task.title}
                   </h3>
                   <VisuallyHidden>
-                    {task.completed ? " - Concluída" : ""}
-                    {` - Prioridade ${task.priority}`}
+                    {task.completed ? " - Completed" : ""}
+                    {` - Priority ${task.priority}`}
                   </VisuallyHidden>
                   <p className="text-text-main mt-2">{task.description}</p>
                 </div>
@@ -125,7 +123,7 @@ const TaskList = ({
                       aria-hidden="true"
                     />
                     <span className="md:block hidden">
-                      {task.completed ? "Concluído" : "Concluir"}
+                      {task.completed ? "Completed" : "Complete"}
                     </span>
                   </motion.button>
                   <motion.button
@@ -139,8 +137,8 @@ const TaskList = ({
                     disabled={!task.completed}
                     aria-label={
                       task.completed
-                        ? `Arquivar a tarefa: ${task.title}`
-                        : `Conclua a tarefa para habilitar o arquivamento`
+                        ? `Archive task: ${task.title}`
+                        : `Complete the task to enable archiving`
                     }
                   >
                     <MdDeleteForever
@@ -148,7 +146,7 @@ const TaskList = ({
                       color="white"
                       aria-hidden="true"
                     />
-                    <span className="md:block hidden">Remover</span>
+                    <span className="md:block hidden">Remove</span>
                   </motion.button>
                 </div>
               </div>
@@ -159,11 +157,11 @@ const TaskList = ({
                     {task.deadline
                       ? new Date(
                           task.deadline + "T00:00:00"
-                        ).toLocaleDateString("pt-BR", { timeZone: "UTC" })
-                      : "sem prazo limite"}
+                        ).toLocaleDateString("en-US", { timeZone: "UTC" })
+                      : "no due date"}
                   </span>
                   <p className="font-secondary text-xs self-end">
-                    {task.deadline && " - prazo limite"}
+                    {task.deadline && " - due date"}
                   </p>
                 </div>
                 <TaskActions
@@ -177,11 +175,11 @@ const TaskList = ({
         })}
       </AnimatePresence>
 
-      {/*list of archived tasks  */}
+      {/* list of archived tasks */}
       {completedTasks.length > 0 && (
         <div className="w-full grid grid-cols-1 justify-center">
           <h4 className="text-primary font-semibold md:text-2xl font-secondary text-center mt-8 mb-4">
-            Tarefas Arquivadas
+            Archived Tasks
           </h4>
           <ul className="grid md:gap-6 gap-2">
             <AnimatePresence>
@@ -201,9 +199,9 @@ const TaskList = ({
                     </h3>
                     {task.updated_at && (
                       <span className="text-sm text-secondary min-w-3xs text-right">
-                        {`Finalizado em ${new Date(
+                        {`Completed on ${new Date(
                           task.updated_at
-                        ).toLocaleDateString("pt-BR")}`}
+                        ).toLocaleDateString("en-US")}`}
                       </span>
                     )}
                   </div>
@@ -216,7 +214,7 @@ const TaskList = ({
             className="text-sm text-secondary mt-4 hover:text-primary cursor-pointer max-w-fit m-auto"
             onClick={() => onClearCompleted(completedTasks)}
           >
-            Deletar todas as tarefas arquivadas
+            Delete all archived tasks
           </motion.button>
         </div>
       )}

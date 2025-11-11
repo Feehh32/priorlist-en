@@ -1,48 +1,54 @@
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import PropTypes from "prop-types";
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const GenericError = ({ error }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   if (!error) return null;
 
-  const isNetworkError = error.includes("Failed to fetch");
+  const isNetworkError = error?.message?.includes("Failed to fetch");
   const errorMsg = isNetworkError
-    ? "Erro ao carregar, Verifique sua conexão."
-    : `Ocorreu um erro inesperado: ${error}.`;
+    ? "Failed to load. Please check your internet connection."
+    : `An unexpected error occurred: ${error.message || error}.`;
 
   return (
-    isOpen && (
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        exit={{ opacity: 0, y: -50 }}
-        className="text-red-700 font-semibold bg-red-100 fixed top-0 left-0 right-0 py-4 px-4 flex justify-center items-center gap-4 shadow-md z-50"
-        aria-live="assertive"
-        role="alert"
-      >
-        <p>{errorMsg}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="text-primary underline cursor-pointer hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition-colors duration-200"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -40 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="text-red-800 font-semibold bg-red-100 fixed top-0 left-0 right-0 py-4 px-6 flex justify-center items-center gap-4 shadow-md z-50"
+          aria-live="assertive"
+          role="alert"
         >
-          Recarregar a página
-        </button>
-        <button
-          onClick={() => setIsOpen(false)}
-          className="absolute top-2 right-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-700 rounded transition-colors duration-200 cursor-pointer"
-        >
-          <MdClose size={20} />
-        </button>
-      </motion.div>
-    )
+          <p>{errorMsg}</p>
+
+          <button
+            onClick={() => window.location.reload()}
+            className="text-blue-700 underline hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition-colors duration-200"
+          >
+            Reload Page
+          </button>
+
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute top-3 right-3 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-700 rounded transition-colors duration-200"
+            aria-label="Close error message"
+          >
+            <MdClose size={20} aria-hidden="true" />
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
-GenericError.propTypes = { error: PropTypes.object.isRequired };
+GenericError.propTypes = {
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+};
 
 export default GenericError;

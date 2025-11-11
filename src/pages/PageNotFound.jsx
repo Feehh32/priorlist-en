@@ -6,11 +6,12 @@ import PageTransition from "../components/pageTransition/PageTransition";
 
 const PageNotFound = () => {
   const { user } = useContext(AuthContext);
+
   return (
     <PageTransition>
-      <div className="relative min-h-screen md:grid md:grid-cols-[2fr_3fr] ">
+      <div className="relative min-h-screen md:grid md:grid-cols-[2fr_3fr]">
         <main
-          className="flex-1 flex  items-center justify-center text-center p-6"
+          className="flex-1 flex items-center justify-center text-center p-6"
           role="status"
           tabIndex={-1}
         >
@@ -19,19 +20,17 @@ const PageNotFound = () => {
               404
             </h2>
             <h1 className="text-2xl md:text-3xl font-semibold font-logo text-secondary mb-6">
-              Página Não Encontrada
+              Page Not Found
             </h1>
             <p className="md:text-xl text-base text-primary mb-6">
-              Ops! A página que você está procurando não existe.
+              Oops! The page you’re looking for doesn’t exist.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 to={user ? "/tasks" : "/"}
                 className="px-6 py-3 w-full bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                {user
-                  ? "Volte para a página suas tarefas"
-                  : "Volte para a página principal"}
+                {user ? "Go back to your tasks" : "Go back to the homepage"}
               </Link>
             </div>
           </div>
@@ -40,7 +39,7 @@ const PageNotFound = () => {
           <source srcSet={NotFoundImg} type="image/webp" />
           <img
             src={NotFoundImg}
-            alt="Ilustração representando uma página não encontrada"
+            alt="Illustration representing a page not found"
             width="1472"
             height="832"
             loading="lazy"

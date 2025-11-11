@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { MdMoreVert, MdEdit, MdDelete } from "react-icons/md";
 import PropTypes from "prop-types";
 import useOutsideClick from "../../hooks/useOutsideClick";
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 
 const menuVariants = {
@@ -30,7 +29,7 @@ const TaskActions = ({ task, onEdit, onDeleteRequest }) => {
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
 
-  const handleToogle = () => {
+  const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
 
@@ -63,29 +62,30 @@ const TaskActions = ({ task, onEdit, onDeleteRequest }) => {
           disabled={task.completed}
         >
           <MdEdit size={16} aria-hidden="true" />
-          Editar
+          Edit
         </button>
         <button
           onClick={() => onDeleteRequest(task)}
           className="flex items-center gap-1 px-3 py-1 text-sm text-secondary rounded-md hover:bg-primary hover:text-white transition cursor-pointer"
         >
           <MdDelete size={18} aria-hidden="true" />
-          Excluir
+          Delete
         </button>
       </div>
 
-      {/* Direct actions on mobile */}
+      {/* Collapsible menu for mobile */}
       <div className="md:hidden relative" ref={menuRef}>
         <button
-          onClick={handleToogle}
+          onClick={handleToggle}
           ref={toggleButtonRef}
-          aria-label={`Mais ações para a tarefa ${task.title}`}
+          aria-label={`More actions for task ${task.title}`}
           aria-expanded={isOpen}
           aria-haspopup="menu"
           className="flex items-center gap-1 p-1 text-sm rounded-full cursor-pointer focus:outline-secondary/50"
         >
           <MdMoreVert size={20} aria-hidden="true" />
         </button>
+
         <AnimatePresence>
           {isOpen && (
             <motion.ul
@@ -113,7 +113,7 @@ const TaskActions = ({ task, onEdit, onDeleteRequest }) => {
                     className="text-secondary"
                     aria-hidden="true"
                   />
-                  Editar
+                  Edit
                 </button>
               </li>
               <li role="none">
@@ -130,7 +130,7 @@ const TaskActions = ({ task, onEdit, onDeleteRequest }) => {
                     className="text-secondary"
                     aria-hidden="true"
                   />
-                  Excluir
+                  Delete
                 </button>
               </li>
             </motion.ul>

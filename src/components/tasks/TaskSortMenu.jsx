@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { MdOutlineSort, MdCheck } from "react-icons/md";
 import PropTypes from "prop-types";
 import useOutsideClick from "../../hooks/useOutsideClick";
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 
 const menuVariants = {
@@ -34,9 +33,8 @@ const TaskSortMenu = ({ handleSortOptions }) => {
 
   const handleOptionClick = (selection) => {
     localStorage.setItem("sortOption", selection);
-    const option = selection;
-    setSelectedSortOption(option);
-    handleSortOptions(option);
+    setSelectedSortOption(selection);
+    handleSortOptions(selection);
     setIsOpen(false);
   };
 
@@ -56,10 +54,10 @@ const TaskSortMenu = ({ handleSortOptions }) => {
   }, [isOpen]);
 
   const options = [
-    { value: "default", label: "Padrão" },
-    { value: "deadline", label: "Prazo" },
-    { value: "urgents", label: "Urgentes" },
-    { value: "a-z", label: "De A-Z" },
+    { value: "default", label: "Default" },
+    { value: "deadline", label: "Deadline" },
+    { value: "urgents", label: "Urgent" },
+    { value: "a-z", label: "A–Z" },
   ];
 
   return (
@@ -72,7 +70,7 @@ const TaskSortMenu = ({ handleSortOptions }) => {
         aria-expanded={isOpen}
       >
         <MdOutlineSort size={20} aria-hidden="true" />
-        <span>Ordenar</span>
+        <span>Sort</span>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -115,6 +113,7 @@ const TaskSortMenu = ({ handleSortOptions }) => {
     </div>
   );
 };
+
 TaskSortMenu.propTypes = {
   handleSortOptions: PropTypes.func.isRequired,
 };
