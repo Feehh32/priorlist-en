@@ -218,6 +218,7 @@ const Tasks = () => {
               <input
                 onChange={handleChangeSearch}
                 type="search"
+                id="search-input"
                 aria-label="Search tasks"
                 placeholder="Type to search..."
                 className="search-input w-full md:min-w-md border border-input-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40"
