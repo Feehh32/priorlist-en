@@ -150,13 +150,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Send password reset email
-  const resetPassword = async (email) => {
+  const forgotPassword = async (email) => {
     setError(null);
     setLoading(true);
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/update-password`,
+        redirectTo: `${window.location.origin}/reset-password`,
       });
 
       if (error) throw error;
@@ -178,8 +178,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Update user password
-  const updatePassword = async (newPassword) => {
+  // Reset user password
+  const resetPassword = async (newPassword) => {
     setError(null);
     setLoading(true);
 
@@ -239,8 +239,8 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
+        forgotPassword,
         resetPassword,
-        updatePassword,
         deactivateAccount,
       }}
     >

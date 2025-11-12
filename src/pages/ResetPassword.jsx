@@ -7,7 +7,7 @@ import { MdOutlineArrowBack } from "react-icons/md";
 import FormInput from "../components/input/FormInput";
 import Spinner from "../components/UI/spinner";
 
-const UpdatePassword = () => {
+const ResetPassword = () => {
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
   const [success, setSuccess] = useState(null);
@@ -15,7 +15,7 @@ const UpdatePassword = () => {
     password: "",
     confirmPassword: "",
   });
-  const { updatePassword, error, loading } = useContext(AuthContext);
+  const { resetPassword, error, loading } = useContext(AuthContext);
 
   useEffect(() => {
     document.title = "PriorList | Reset Password";
@@ -36,7 +36,7 @@ const UpdatePassword = () => {
 
     if (Object.keys(errors).length > 0) return;
 
-    const res = await updatePassword(passwordData.password);
+    const res = await resetPassword(passwordData.password);
     if (!res.success) return;
 
     setSuccess({
@@ -140,4 +140,4 @@ const UpdatePassword = () => {
   );
 };
 
-export default UpdatePassword;
+export default ResetPassword;

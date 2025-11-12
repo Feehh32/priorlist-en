@@ -13,7 +13,7 @@ const ForgotPassword = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [success, setSuccess] = useState(null);
-  const { resetPassword, error, loading } = useContext(AuthContext);
+  const { forgotPassword, error, loading } = useContext(AuthContext);
 
   useEffect(() => {
     document.title = "Forgot Password | PriorList";
@@ -34,7 +34,7 @@ const ForgotPassword = () => {
     if (Object.keys(errors).length > 0) return;
 
     // Send reset password request
-    const res = await resetPassword(loginData.email);
+    const res = await forgotPassword(loginData.email);
     if (!res.success) return;
     setSuccess({
       success: true,

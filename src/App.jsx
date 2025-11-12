@@ -9,7 +9,7 @@ const Tasks = lazy(() => import("./pages/Tasks"));
 const About = lazy(() => import("./pages/About"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-const UpdatePassword = lazy(() => import("./pages/UpdatePassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AccountDeactivated = lazy(() => import("./pages/AccountDeactivated"));
 
 import { AuthProvider } from "./contexts/AuthProvider";
@@ -38,7 +38,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
               <Route path="about" element={<About />} />
-              <Route path="update-password" element={<UpdatePassword />} />
+              <Route path="reset-password" element={<ResetPassword />} />
               <Route element={<DeactivatedRoute />}>
                 <Route
                   path="account-deactivated"
