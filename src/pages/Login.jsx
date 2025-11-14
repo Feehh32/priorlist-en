@@ -150,7 +150,7 @@ const Login = () => {
               </button>
               {error && (
                 <p className="text-red-500 text-sm text-center" role="alert">
-                  Incorrect email or password
+                  {error}
                 </p>
               )}
               <p className="text-sm text-center text-gray-600">
