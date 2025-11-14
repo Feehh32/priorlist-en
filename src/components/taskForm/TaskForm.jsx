@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import FormInput from "../input/FormInput";
 import { useEffect, useState, useRef } from "react";
 import taskFormValidator from "../../utils/taskFormValidator";
-import Spinner from "../UI/spinner";
+import Spinner from "../UI/Spinner";
 
 const TaskForm = ({ onSubmit, modalMode, taskToEdit, loading }) => {
   const [formErrors, setFormErrors] = useState({});

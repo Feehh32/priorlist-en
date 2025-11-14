@@ -5,7 +5,7 @@ import FormInput from "../components/input/FormInput";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import PageTransition from "../components/pageTransition/PageTransition";
 import { AuthContext } from "../contexts/AuthContext";
-import Spinner from "../components/UI/spinner";
+import Spinner from "../components/UI/Spinner";
 
 const ForgotPassword = () => {
   const [loginData, setLoginData] = useState({

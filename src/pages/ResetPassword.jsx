@@ -5,7 +5,7 @@ import resetPasswordValidator from "../utils/updatePasswordValidator";
 import PageTransition from "../components/pageTransition/PageTransition";
 import { MdOutlineArrowBack } from "react-icons/md";
 import FormInput from "../components/input/FormInput";
-import Spinner from "../components/UI/spinner";
+import Spinner from "../components/UI/Spinner";
 
 const ResetPassword = () => {
   const navigate = useNavigate();

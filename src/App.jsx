@@ -17,7 +17,7 @@ import ProtectedRoutes from "./components/Routes/ProtectedRoutes";
 import DeactivatedRoute from "./components/Routes/DeactivatedRoute";
 
 import { AnimatePresence } from "framer-motion";
-import Spinner from "./components/UI/spinner";
+import Spinner from "./components/UI/Spinner";
 
 function App() {
   const location = useLocation();

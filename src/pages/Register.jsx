@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import Spinner from "../components/UI/spinner";
+import Spinner from "../components/UI/Spinner";
 import FormInput from "../components/input/FormInput";
 import PageTransition from "../components/pageTransition/PageTransition";
 import registerValidator from "../utils/registerValidators";

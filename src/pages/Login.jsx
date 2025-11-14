@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import FormInput from "../components/input/FormInput";
 import { useState, useEffect } from "react";
-import Spinner from "../components/UI/spinner";
+import Spinner from "../components/UI/Spinner";
 import loginValidator from "../utils/loginValidator";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";

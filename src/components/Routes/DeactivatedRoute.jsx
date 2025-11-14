@@ -1,7 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import Spinner from "../UI/spinner";
+import Spinner from "../UI/Spinner";
 
 const DeactivatedRoute = () => {
   const { user, loading } = useContext(AuthContext);
