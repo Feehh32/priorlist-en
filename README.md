@@ -4,6 +4,12 @@
 
 #### Live Demo: [https://priorlist.vercel.app](https://priorlist.vercel.app)
 
+> **Note on AI Assistance**
+>
+> This project was developed by me, but I used AI tools (including ChatGPT) as support for learning, debugging, and clarifying concepts throughout the process.  
+> No part of the application was generated or implemented without my understanding; every line of code was fully written, reviewed, and adapted by me.  
+> The AI assistance served only as guidance during development.
+
 #### 📌 CS50 Final Project — 2025
 
 ---
