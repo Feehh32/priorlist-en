@@ -1,5 +1,7 @@
 # PriorList — Your Tasks, Your Way
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 #### Video Demo: [Priorlist app video on youtube](https://youtu.be/Hc_k3-iOBdY)
 
 #### Live Demo: [https://priorlist.vercel.app](https://priorlist.vercel.app)
