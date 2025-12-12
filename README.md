@@ -1,6 +1,6 @@
 # PriorList — Your Tasks, Your Way
 
-#### Video Demo: [Priorlist app video on youtube](https://youtu.be/pJ5lK6bn2y4)
+#### Video Demo: [Priorlist app video on youtube](https://youtu.be/Hc_k3-iOBdY)
 
 #### Live Demo: [https://priorlist.vercel.app](https://priorlist.vercel.app)
 
